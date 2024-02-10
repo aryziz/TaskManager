@@ -1,8 +1,11 @@
-const tasksDOM = document.querySelector('.tasks')
-const loadingDOM = document.querySelector('.loading-text')
-const formDOM = document.querySelector('.task-form')
-const taskInputDOM = document.querySelector('.task-input')
-const formAlertDOM = document.querySelector('.form-alert')
+const tasksDOM = document.querySelector('.tasks');
+const loadingDOM = document.querySelector('.loading-text');
+const formDOM = document.querySelector('.task-form');
+const taskInputDOM = document.querySelector('.task-input');
+const formAlertDOM = document.querySelector('.form-alert');
+const openHamDOM = document.querySelector('#openHam');
+const closeHamDOM = document.querySelector('#closeHam');
+const navigationItemsDOM = document.querySelector('#navigation-items');
 // Load tasks from /api/tasks
 const showTasks = async () => {
   loadingDOM.style.visibility = 'visible'
@@ -86,3 +89,13 @@ formDOM.addEventListener('submit', async (e) => {
     formAlertDOM.classList.remove('text-success')
   }, 3000)
 })
+
+/* Controls visibility of elements */
+const hamburgerEvent = (nav, close, open) => {
+  navigationItemsDOM.style.display = nav;
+  closeHamDOM.style.display = close;
+  openHamDOM.style.display = open;
+}
+
+openHamDOM.addEventListener('click', () => hamburgerEvent("flex", "block", "none"));
+closeHamDOM.addEventListener('click', () => hamburgerEvent("none", "none", "block"));
