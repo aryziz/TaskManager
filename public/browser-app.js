@@ -128,3 +128,12 @@ const hamburgerEvent = (nav, close, open) => {
 
 openHamDOM.addEventListener('click', () => hamburgerEvent("flex", "block", "none"));
 closeHamDOM.addEventListener('click', () => hamburgerEvent("none", "none", "block"));
+
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 768) {
+    hamburgerEvent("flex", "none", "block");
+  }
+  else if (window.innerWidth < 768) {
+    hamburgerEvent("none", "none", "block");
+  }
+})

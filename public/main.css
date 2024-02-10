@@ -571,7 +571,6 @@ nav {
   }
 
   .navigation-items {
-    display: none;
     flex-direction: column;
     align-items: center;
     position: absolute;
@@ -582,5 +581,6 @@ nav {
     height: calc(100vh - 58px);
     padding-top: 60px;
     gap: 10vh;
+    transition: 0.3s ease;
   }
 }
