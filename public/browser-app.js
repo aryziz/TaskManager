@@ -20,17 +20,21 @@ const showTasks = async () => {
     }
     const allTasks = tasks
       .map((task) => {
-        const { completed, _id: taskID, name } = task
+        const { completed, _id: taskID, name } = task;
+        const buttonClass = completed ? 'undo-btn' : 'check-btn';
+        const iconClass = completed ? 'fas fa-undo' : 'fas fa-check';
         return `<div class="single-task ${completed && 'task-completed'}">
 <h5><span><i class="far fa-check-circle"></i></span>${name}</h5>
 <div class="task-links">
-
-
 
 <!-- edit link -->
 <a href="task.html?id=${taskID}"  class="edit-link">
 <i class="fas fa-edit"></i>
 </a>
+<!-- Completed/Undo link -->
+<button type="button" class="${buttonClass}" data-id="${taskID}">
+<i class="${iconClass}"></i>
+</button>
 <!-- delete btn -->
 <button type="button" class="delete-btn" data-id="${taskID}">
 <i class="fas fa-trash"></i>
@@ -63,6 +67,31 @@ tasksDOM.addEventListener('click', async (e) => {
     } catch (error) {
       console.log(error)
     }
+  } else if (el.parentElement.classList.contains('check-btn')) {
+    loadingDOM.style.visibility = 'visible';
+    const id = el.parentElement.dataset.id;
+    try {
+      await axios.patch(`/api/v1/tasks/${id}`, { completed: true });
+      el.parentElement.classList.add('task-completed');
+      el.innerHTML = '<i class="fas fa-undo></i>"';
+      el.classList.replace('check-btn', 'undo-btn');
+      showTasks();
+    } catch (error) {
+      console.log(error);
+    }
+  } else if (el.parentElement.classList.contains('undo-btn')) {
+    loadingDOM.style.visibility = 'visible';
+    const id = el.parentElement.dataset.id;
+    try {
+      await axios.patch(`/api/v1/tasks/${id}`, { completed: false });
+      el.parentElement.classList.remove('task-completed');
+      // Change back to a "check" button
+      el.innerHTML = '<i class="fas fa-check"></i>';
+      el.classList.replace('undo-btn', 'check-btn');
+      showTasks();
+    } catch (error) {
+      console.log(error);
+    }
   }
   loadingDOM.style.visibility = 'hidden'
 })
@@ -90,7 +119,7 @@ formDOM.addEventListener('submit', async (e) => {
   }, 3000)
 })
 
-/* Controls visibility of elements */
+// Controls visibility of elements
 const hamburgerEvent = (nav, close, open) => {
   navigationItemsDOM.style.display = nav;
   closeHamDOM.style.display = close;

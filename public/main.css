@@ -424,7 +424,9 @@ form> :last-child {
 }
 
 .delete-btn,
-.edit-link {
+.edit-link,
+.check-btn,
+.undo-btn {
   background: transparent;
   font-size: 0.75rem;
   border: transparent;
@@ -437,6 +439,14 @@ form> :last-child {
 
 .delete-btn {
   color: var(--red-dark);
+}
+
+.check-btn {
+  color: #FFA500;
+}
+
+.undo-btn {
+  color: var(--grey-800);
 }
 
 /*************
@@ -531,15 +541,15 @@ nav {
 
 /* Navigation links */
 .navigation-items>a {
-  color: var(--grey-400);
+  color: ghostwhite;
   text-decoration: none;
   font-weight: 500;
   font-size: 16px;
   transition: .4s ease-in-out;
 }
 
-.navitaion-items>a:hover {
-  color: var(--primary-0);
+.navigation-items>a:hover {
+  color: var(--grey-700);
 }
 
 /* Don't show hamburger on desktop */
